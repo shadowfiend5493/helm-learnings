@@ -1,0 +1,55 @@
+app:
+  name: dcsm
+  replicas: 2
+  enabled: true
+  environment: dev
+
+debug:
+  enabled: true
+
+namespaces:
+  - dev
+  - test
+  - prod
+
+labels:
+  team: platform
+  environment: learning
+
+globalLabels:
+  team: platform
+  managedBy: helm
+
+containers:
+  - name: web
+    image: nginx:1.27
+    port: 80
+  - name: metrics
+    image: prom/statsd-exporter:v0.26.1
+    port: 9102
+
+apps:
+  dcsm:
+    image: nginx:1.27
+    replicas: 2
+    port: 80
+    configfile: dcsm-config.yaml
+    gitrepo: https://example.com/dcsm.git
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+  camera:
+    image: nginx:1.27
+    replicas: 1
+    port: 8080
+    configfile: camera-config.yaml
+    gitrepo: https://example.com/camera.git
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9102"
+
+portGeneration:
+  start: 8000
+  count: 3
