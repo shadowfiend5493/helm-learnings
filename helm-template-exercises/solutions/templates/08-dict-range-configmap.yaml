@@ -1,0 +1,9 @@
+# Solution 08: loop over key-value pairs in a dictionary.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dict-range-example
+data:
+{{- range $key, $value := .Values.labels }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}

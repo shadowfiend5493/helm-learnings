@@ -1,0 +1,28 @@
+# Solution 14: use $ to access root values from inside a range loop.
+{{- range $appName, $appDetails := .Values.apps }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}-root-scope
+  labels:
+    app: {{ $appName }}
+{{- range $key, $value := $.Values.globalLabels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+spec:
+  replicas: {{ $appDetails.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+        - name: {{ $appName }}
+          image: {{ $appDetails.image }}
+          ports:
+            - containerPort: {{ $appDetails.port }}
+---
+{{- end }}

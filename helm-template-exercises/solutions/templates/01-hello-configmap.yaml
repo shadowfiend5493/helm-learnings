@@ -1,0 +1,7 @@
+# Solution 01: static ConfigMap without reading values.yaml.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-configmap
+data:
+  message: "hello helm"

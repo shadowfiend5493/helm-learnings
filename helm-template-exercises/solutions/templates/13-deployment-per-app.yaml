@@ -1,0 +1,23 @@
+# Solution 13: create one Deployment for each app in the apps dictionary.
+{{- range $appName, $appDetails := .Values.apps }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}
+spec:
+  replicas: {{ $appDetails.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+        - name: {{ $appName }}
+          image: {{ $appDetails.image }}
+          ports:
+            - containerPort: {{ $appDetails.port }}
+---
+{{- end }}

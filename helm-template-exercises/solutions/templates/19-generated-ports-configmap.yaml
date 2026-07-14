@@ -1,0 +1,10 @@
+# Solution 19: generate values using until and add.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: generated-ports-example
+data:
+{{- $start := .Values.portGeneration.start }}
+{{- range $index := until (.Values.portGeneration.count | int) }}
+  port-{{ $index }}: {{ add $start $index | quote }}
+{{- end }}

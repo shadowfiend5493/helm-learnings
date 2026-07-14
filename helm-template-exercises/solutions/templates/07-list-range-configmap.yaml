@@ -1,0 +1,9 @@
+# Solution 07: loop over a list and use the index in each key.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: list-range-example
+data:
+{{- range $index, $namespace := .Values.namespaces }}
+  namespace-{{ $index }}: {{ $namespace | quote }}
+{{- end }}

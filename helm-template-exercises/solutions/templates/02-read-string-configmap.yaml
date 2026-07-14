@@ -1,0 +1,7 @@
+# Solution 02: read a string value from values.yaml.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}
+data:
+  appName: {{ .Values.app.name | quote }}

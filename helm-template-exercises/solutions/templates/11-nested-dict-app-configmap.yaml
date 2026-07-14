@@ -1,0 +1,10 @@
+# Solution 11: loop over a nested dictionary of apps.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nested-dict-app-config
+data:
+{{- range $appName, $appDetails := .Values.apps }}
+  {{ $appName }}.configfile: {{ $appDetails.configfile | quote }}
+  {{ $appName }}.gitrepo: {{ $appDetails.gitrepo | quote }}
+{{- end }}

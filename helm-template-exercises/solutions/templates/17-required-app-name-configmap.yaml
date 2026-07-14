@@ -1,0 +1,7 @@
+# Solution 17: fail template rendering if app.name is missing.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: required-app-name-example
+data:
+  appName: {{ required "app.name is required" .Values.app.name | quote }}

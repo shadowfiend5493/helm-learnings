@@ -1,0 +1,9 @@
+# Solution 05: create this ConfigMap only when debug.enabled is true.
+{{- if .Values.debug.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debug-config
+data:
+  debug: "enabled"
+{{- end }}

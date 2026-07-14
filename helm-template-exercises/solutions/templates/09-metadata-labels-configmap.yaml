@@ -1,0 +1,11 @@
+# Solution 09: render dictionary values under metadata.labels.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metadata-labels-example
+  labels:
+{{- range $key, $value := .Values.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+data:
+  message: "labels added to metadata"

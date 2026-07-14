@@ -1,0 +1,7 @@
+# Solution 06: always render the ConfigMap, but choose the value with if/else.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: if-else-example
+data:
+  debugStatus: {{ if .Values.debug.enabled }}"enabled"{{ else }}"disabled"{{ end }}

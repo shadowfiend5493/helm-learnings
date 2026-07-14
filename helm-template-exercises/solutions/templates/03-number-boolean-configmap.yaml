@@ -1,0 +1,8 @@
+# Solution 03: render number and boolean values inside ConfigMap.data.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: number-boolean-example
+data:
+  replicas: {{ .Values.app.replicas | quote }}
+  enabled: {{ .Values.app.enabled | quote }}

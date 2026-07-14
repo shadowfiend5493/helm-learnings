@@ -1,0 +1,27 @@
+# Solution 15: use with, toYaml, and nindent for optional resources.
+{{- range $appName, $appDetails := .Values.apps }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}-resources
+spec:
+  replicas: {{ $appDetails.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+        - name: {{ $appName }}
+          image: {{ $appDetails.image }}
+          ports:
+            - containerPort: {{ $appDetails.port }}
+{{- with $appDetails.resources }}
+          resources:
+{{- toYaml . | nindent 12 }}
+{{- end }}
+---
+{{- end }}

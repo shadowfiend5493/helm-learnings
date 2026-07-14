@@ -1,0 +1,13 @@
+# Solution 10: loop over a list of container dictionaries.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: list-of-dicts-pod
+spec:
+  containers:
+{{- range $container := .Values.containers }}
+    - name: {{ $container.name }}
+      image: {{ $container.image }}
+      ports:
+        - containerPort: {{ $container.port }}
+{{- end }}

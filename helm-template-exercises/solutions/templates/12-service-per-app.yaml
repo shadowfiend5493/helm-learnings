@@ -1,0 +1,14 @@
+# Solution 12: create one Service for each app in the apps dictionary.
+{{- range $appName, $appDetails := .Values.apps }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $appName }}
+spec:
+  selector:
+    app: {{ $appName }}
+  ports:
+    - port: {{ $appDetails.port }}
+      targetPort: {{ $appDetails.port }}
+---
+{{- end }}

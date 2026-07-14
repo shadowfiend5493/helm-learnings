@@ -1,0 +1,14 @@
+# Solution 18: build names with printf.
+{{- range $appName, $appDetails := .Values.apps }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ printf "%s-service" $appName }}
+spec:
+  selector:
+    app: {{ $appName }}
+  ports:
+    - port: {{ $appDetails.port }}
+      targetPort: {{ $appDetails.port }}
+---
+{{- end }}

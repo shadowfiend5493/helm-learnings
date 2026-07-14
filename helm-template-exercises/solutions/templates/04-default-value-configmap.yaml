@@ -1,0 +1,7 @@
+# Solution 04: use a default value if app.environment is missing.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: default-value-example
+data:
+  environment: {{ .Values.app.environment | default "dev" | quote }}

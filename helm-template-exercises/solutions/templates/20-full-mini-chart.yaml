@@ -1,0 +1,61 @@
+# Solution 20: combine common Helm patterns in one mini Kubernetes example.
+{{- $appName := .Values.app.name }}
+{{- $firstContainer := index .Values.containers 0 }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $appName }}-config
+  labels:
+{{- range $key, $value := .Values.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+data:
+  appName: {{ $appName | quote }}
+  environment: {{ .Values.app.environment | quote }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}-deployment
+  labels:
+    app: {{ $appName }}
+{{- range $key, $value := .Values.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+{{- range $container := .Values.containers }}
+        - name: {{ $container.name }}
+          image: {{ $container.image }}
+          ports:
+            - containerPort: {{ $container.port }}
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $appName }}-full-service
+spec:
+  selector:
+    app: {{ $appName }}
+  ports:
+    - port: {{ $firstContainer.port }}
+      targetPort: {{ $firstContainer.port }}
+{{- if .Values.debug.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $appName }}-debug
+data:
+  debug: "enabled"
+{{- end }}

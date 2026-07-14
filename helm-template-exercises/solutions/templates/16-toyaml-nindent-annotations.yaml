@@ -1,0 +1,22 @@
+# Solution 16: render a YAML dictionary cleanly with toYaml and nindent.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: annotations-example
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+      annotations:
+{{- toYaml .Values.podAnnotations | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
