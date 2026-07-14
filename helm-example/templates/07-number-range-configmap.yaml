@@ -1,0 +1,15 @@
+# Use case: generate repeated values using a number range.
+# This is similar to Python's "for number in range(3)".
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: number-range-example
+data:
+
+          
+{{- $startPort := .Values.kubernetes.generatedPorts.start }}
+                         
+{{- range $index := until (.Values.kubernetes.generatedPorts.count | int) }}
+
+  port-{{ $index }}: {{ add $startPort $index | quote }}
+{{- end }}

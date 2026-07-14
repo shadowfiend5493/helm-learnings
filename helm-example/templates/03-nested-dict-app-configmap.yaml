@@ -1,0 +1,11 @@
+# Use case: iterate over a nested dictionary from values.yaml.
+# The outer loop gets each app name, and the inner values hold app details.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-nested-dict-example
+data:
+{{- range $appName, $appDetails := .Values.appname }}
+  {{ $appName }}.configfile: {{ $appDetails.configfile | quote }}
+  {{ $appName }}.gitrepo: {{ $appDetails.gitrepo | quote }}
+{{- end }}

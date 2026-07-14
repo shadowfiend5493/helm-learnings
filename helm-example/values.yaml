@@ -1,0 +1,46 @@
+appname:
+  dcsm:
+    configfile: dcsm_config.yaml
+    gitrepo: https://example.com/dcsm.git
+  camera:
+    configfile: camera_config.yaml
+    gitrepo: https://example.com/camera.git
+
+kubernetes:
+  namespaces:
+    - dev
+    - test
+    - prod
+  commonLabels:
+    team: platform
+    environment: learning
+    service: web
+  deployments:
+    dcsm:
+      image: nginx:1.27
+      replicas: 2
+      port: 80
+    camera:
+      image: nginx:1.27
+      replicas: 1
+      port: 8080
+  releaseInfo:
+    appName: dcsm
+    replicas: 2
+    cpuLimit: 0.5
+    enabled: true
+  featureFlags:
+    createDebugConfig: true
+  podContainers:
+    - name: web
+      image: nginx:1.27
+      port: 80
+    - name: metrics
+      image: prom/statsd-exporter:v0.26.1
+      port: 9102
+    - name: sasa
+      image: sasa:1.27
+      port: 8080
+  generatedPorts:
+    count: 3
+    start: 8000

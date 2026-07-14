@@ -1,0 +1,11 @@
+# Use case: iterate over a dictionary from values.yaml.
+# This is similar to Python's "for key, value in my_dict.items()".
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-labels-dict-example
+data:
+                                    
+{{- range $labelName, $labelValue := .Values.kubernetes.commonLabels }}
+  {{ $labelName }}: {{ $labelValue | quote }}
+{{- end }}

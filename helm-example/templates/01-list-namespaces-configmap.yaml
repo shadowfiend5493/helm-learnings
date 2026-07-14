@@ -1,0 +1,11 @@
+# Use case: iterate over a list from values.yaml.
+# This is similar to looping over a Python list with "for name in names".
+{{- range $index, $namespace := .Values.kubernetes.namespaces }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: namespace-list-{{ $namespace }}
+data:
+  namespace-{{ $index }}: {{ $namespace | quote }}
+{{- end }}
+

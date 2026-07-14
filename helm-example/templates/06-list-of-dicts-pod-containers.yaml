@@ -1,0 +1,14 @@
+# Use case: iterate over a list of dictionaries from values.yaml.
+# This is similar to Python's "for item in list_of_dicts".
+apiVersion: v1
+kind: Pod
+metadata:
+  name: list-of-dicts-containers-example
+spec:
+  containers:
+{{- range $container := .Values.kubernetes.podContainers }}
+    - name: {{ $container.name }}
+      image: {{ $container.image }}
+      ports:
+        - containerPort: {{ $container.port }}
+{{- end }}

@@ -1,0 +1,125 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Helm: 01 list namespaces",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/01-list-namespaces-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 02 dict common labels",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/02-dict-common-labels-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 03 nested app config",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/03-nested-dict-app-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 04 scalar values",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/04-scalar-values-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 05 bool if condition",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/05-bool-if-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 06 list of dicts containers",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/06-list-of-dicts-pod-containers.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 07 number range",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/07-number-range-configmap.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 08 nested dict deployments",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/08-nested-dict-deployments.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: 09 nested dict services",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example --show-only templates/09-nested-dict-services.yaml",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Helm: All examples",
+      "type": "shell",
+      "command": "helm template appname-example ./helm-example",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

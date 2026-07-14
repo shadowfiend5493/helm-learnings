@@ -1,0 +1,29 @@
+# Use case: create one Kubernetes Deployment for each app in a nested dictionary.
+# The range loop creates a separate Deployment for dcsm and camera.
+{{- range $appName, $appDetails := .Values.kubernetes.deployments }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}
+  labels:
+    app: {{ $appName }}
+{{- range $labelName, $labelValue := $.Values.kubernetes.commonLabels }}
+    {{ $labelName }}: {{ $labelValue | quote }}
+{{- end }}
+spec:
+  replicas: {{ $appDetails.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+        - name: {{ $appName }}
+          image: {{ $appDetails.image }}
+          ports:
+            - containerPort: {{ $appDetails.port }}
+---
+{{- end }}

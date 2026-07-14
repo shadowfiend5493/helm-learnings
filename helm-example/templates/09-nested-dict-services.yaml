@@ -1,0 +1,15 @@
+# Use case: create one Kubernetes Service for each app in a nested dictionary.
+# Each service uses the app name and port from values.yaml.
+{{- range $appName, $appDetails := .Values.kubernetes.deployments }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $appName }}
+spec:
+  selector:
+    app: {{ $appName }}
+  ports:
+    - port: {{ $appDetails.port }}
+      targetPort: {{ $appDetails.port }}
+---
+{{- end }}

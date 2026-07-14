@@ -1,0 +1,11 @@
+# Use case: read simple scalar values from values.yaml.
+# These are similar to Python int, str, float, and bool variables.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scalar-values-example
+data:
+  appName: {{ .Values.kubernetes.releaseInfo.appName | quote }}
+  replicas: {{ .Values.kubernetes.releaseInfo.replicas | quote }}
+  cpuLimit: {{ .Values.kubernetes.releaseInfo.cpuLimit | quote }}
+  enabled: {{ .Values.kubernetes.releaseInfo.enabled | quote }}

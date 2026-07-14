@@ -1,0 +1,11 @@
+# Use case: create a Kubernetes object only when a boolean is true.
+# This is similar to Python's "if enabled:" condition.
+{{- if .Values.kubernetes.featureFlags.createDebugConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: debug-config-enabled-example
+data:
+  debug: "enabled"
+  message: "This ConfigMap is created because createDebugConfig is true."
+{{- end }}
